@@ -5,6 +5,7 @@
   overflow: hidden;
   border-radius: 15px;
   box-shadow: 0px 4px 8px 1px rgba(0, 0, 0, 0.25);
+  animation: fade-in 1s;
 }
 
 .image {
@@ -21,4 +22,13 @@
   font-style: normal;
   font-weight: 800;
   line-height: normal;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

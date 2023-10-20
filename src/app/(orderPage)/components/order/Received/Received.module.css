@@ -11,7 +11,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: all 1s;
+  animation: fade-in 1s;
+  min-width: 387px;
 }
 
 .img {
@@ -42,4 +43,13 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

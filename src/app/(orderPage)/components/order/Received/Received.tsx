@@ -1,9 +1,11 @@
+"use client"
+
 import React from "react";
 import style from "./Received.module.css";
 import Image from "next/image";
 import styles from "./Received.module.css";
 
-export default async function Received({
+export default function Received({
   imageLink,
   tableNumber,
   name,
