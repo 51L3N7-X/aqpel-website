@@ -104,14 +104,14 @@ export default function Test({ params }: { params: { id: string } }) {
     });
 
 
-    setTimeout(() => {
-   waiter.emit("waiter:orderDone", {
-     orderId: "64fe167e6ae14ba0ec34a086",
-     name: "Hossam",
-     photoUrl:
-       "https://toppng.com/uploads/preview/user-account-management-logo-user-icon-11562867145a56rus2zwu.png",
-   });
-    } ,3000)
+  //   setTimeout(() => {
+  //  waiter.emit("waiter:orderDone", {
+  //    orderId: "64fe167e6ae14ba0ec34a086",
+  //    name: "Hossam",
+  //    photoUrl:
+  //      "https://toppng.com/uploads/preview/user-account-management-logo-user-icon-11562867145a56rus2zwu.png",
+  //  });
+  //   } ,3000)
 
     
 
