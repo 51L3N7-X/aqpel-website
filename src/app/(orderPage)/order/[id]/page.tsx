@@ -20,5 +20,5 @@ async function getData(id: string) {
 
 export default async function Page({ params }: { params: { id: string } }) {
 const data = await getData(params.id);
-return <Order params={params} table={data}></Order>
+return <Order params={params} table={data.table}></Order>
 }

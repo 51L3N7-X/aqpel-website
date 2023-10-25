@@ -15,7 +15,6 @@ export default function Button({
   imageName,
   ...props
 }: props) : JSX.Element {
-  console.log(props)
   return (
     <div className={style.btn} {...props}>
       <div className={style.image}>
