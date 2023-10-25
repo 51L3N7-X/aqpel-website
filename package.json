@@ -16,7 +16,6 @@
     "react-dom": "^18",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "swr": "^2.2.4",
     "utf-8-validate": "^5.0.10"
   },
   "devDependencies": {

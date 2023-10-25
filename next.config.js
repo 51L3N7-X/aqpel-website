@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["toppng.com"],
   },
+  experimental: {
+    serverActions: true,
+  },
 };
 
 module.exports = nextConfig
