@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import SingUp from "../components/signup/signup";
+import SingIn from "../components/singin/singin";
 
-export default function SingUpPage() {
+
+export default function SingInPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -14,5 +15,5 @@ export default function SingUpPage() {
     setLoading(false);
   }, [router]);
 
-  return loading ? <div>loading...</div> : <SingUp></SingUp>;
+  return loading ? <div>loading...</div> : <SingIn></SingIn>;
 }
