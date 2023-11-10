@@ -8,7 +8,8 @@ import { useState, useEffect } from "react";
 export default function Main() {
   const router = useRouter();
   const [isAccessAble, setIsAccessAble] = useState<boolean>(false);
-  const [data, setData] = useState<any>({});
+  const [user, setUser] = useState<any>({});
+  const [restaurant, setRestaurant] = useState<any>({});
 
   useEffect(() => {
     checkUser(localStorage.getItem("token"));
@@ -24,10 +25,18 @@ export default function Main() {
     });
 
     user = await user.json();
-    if (user.success == false) return router.push("/singin");
-   setIsAccessAble(true);
-   setData(user)
+    if (user.success == false && user.message == "Unauthorized") {
+      localStorage.clear();
+      return router.push("/singin");
+    }
+
+    setIsAccessAble(true);
+    setUser(user);
   };
 
-  return isAccessAble ? <Dashboard user={data}></Dashboard> : <div>Loading ...</div>;
+  return isAccessAble ? (
+    <Dashboard user={user}></Dashboard>
+  ) : (
+    <div>Loading ...</div>
+  );
 }
