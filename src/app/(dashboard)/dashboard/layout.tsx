@@ -34,7 +34,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div>{children}</div>;
+      <div>{children}</div>
     </QueryClientProvider>
   );
 }
