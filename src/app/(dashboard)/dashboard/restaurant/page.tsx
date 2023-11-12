@@ -15,6 +15,7 @@ export default function Page() {
   const router = useRouter();
   // const [isRestaurantExist, setIsRestaurantExist] = useState<Boolean>(true);
   const [restaurant, setRestaurant] = useState<any>({});
+  // const [token, setToken] = useState<any>("");
 
   //     const checkRestaurant = async (token: string | null) => {
 
@@ -47,31 +48,44 @@ export default function Page() {
   //     ([url, token] : any[any]) => fetcher(url , token)
   //   );
   //   console.log(data);
-  const token: any = localStorage.getItem("token");
-  const data = useQuery("data", () => {
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurant`, {
+
+  const response = useQuery("data", async () => {
+    const token: any = localStorage.getItem("token")
+    const data: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restaurant`, {
       method: "GET",
       headers: {
         Authorization: token,
       },
     }).then((res) => res.json());
-  });
 
-  useEffect(() => {
-    if (!data?.data?.success && data?.data?.message == "Unauthorized") {
+    if (!data?.success && data?.message == "Unauthorized") {
       localStorage.clear()
       return router.push("/signin");
     }
-    
-    setRestaurant(data?.data);
-  } , [])
+
+    console.log("data is " , data);
+    localStorage.setItem("restaurant_name", data.name)
+    setRestaurant(data);
+    return data;
+  });
+
+  // setRestaurant(response.data)
+  //   useEffect(() => {
+  //     // setToken(localStorage.getItem("token"))
+  //   if (!data?.data?.success && data?.data?.message == "Unauthorized") {
+  //     localStorage.clear()
+  //     return router.push("/signin");
+  //   }
+
+  //   setRestaurant(data?.data);
+  // }, [])
 
 
-  if (data.isLoading) return <div>Loading...</div>;
+  if (response.isLoading) return <div>Loading...</div>;
 
+  console.log(restaurant);
 
-  
-  return <Restaurant restaurant={restaurant} setRestaurant={setRestaurant}></Restaurant>
+  return <Restaurant restaurant={restaurant || response.data} setRestaurant={setRestaurant}></Restaurant>
 
   //   return isRestaurantExist ? (
   //     <Restaurant restaurant={data}></Restaurant>
