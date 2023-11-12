@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ItemButton from "../ItemButton/ItemButton";
 
 interface menu {
-  restaurant_name: string;
+  restaurant_name?: string | any;
   name: string;
 }
 
@@ -19,7 +19,6 @@ export default function Menu({
 }) {
   const [isAdding, setIsAdding] = useState(false);
   const [addMenuBody, setAddMenuBody] = useState<menu>({
-    restaurant_name: "",
     name: "",
   });
 
