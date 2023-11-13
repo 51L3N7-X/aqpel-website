@@ -1,45 +1,24 @@
-"use client";
+"use server";
 
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { useEffect } from "react";
-import Image from "next/image";
+import Order from "../../components/order/Order/Order";
+
 // export const dynamicParams = false;
 
 // export async function generateStaticParams() {
 //   return [{ id: "1" }, { id: "2" }];
 // }
 
-function fetchTable(id: string) {
-  console.log("test");
-  //TODO: fetch table from api
-  return true;
+async function getData(id: string) {
+  const res = await fetch(`https://aqpelv2.jjjjkkjjjjkkm.repl.co/v1/${id}`);
+
+  if (!(res.status == 200)) return notFound();
+
+  return res.json();
 }
 
-export default function Test({ params }: { params: { id: string } }) {
-  useEffect(() => {
-    const table = fetchTable(params.id);
-    if (!table) return notFound();
-  });
 
-  return (
-    <>
-      <div className="container">
-        <nav className="navbar">
-          <Image
-            alt=""
-            src="/order/images/logo.svg"
-            height={44}
-            width={44}
-          ></Image>
-          <Image
-            alt=""
-            src="/order/images/menu.svg"
-            height={44}
-            width={44}
-          ></Image>
-        </nav>
-      </div>
-    </>
-  );
+export default async function Page({ params }: { params: { id: string } }) {
+const data = await getData(params.id);
+return <Order params={params} table={data.table}></Order>
 }
