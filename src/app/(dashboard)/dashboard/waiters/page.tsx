@@ -61,9 +61,9 @@ export default function Waiters() {
             <WaiterContainer waiters={waiters} newWaiter={true} setWaiters={setWaiters}></WaiterContainer>
             {waiters.map((waiter, index) => {
                 return (
-                    <Fragment>
+                    <Fragment key={index}>
                         <br />
-                        <WaiterContainer id={waiter._id} waiters={waiters} newWaiter={false} setWaiters={setWaiters} waiter={waiter} key={index}></WaiterContainer>
+                        <WaiterContainer id={waiter._id} waiters={waiters} newWaiter={false} setWaiters={setWaiters} waiter={waiter}></WaiterContainer>
                     </Fragment>
                 )
             })}
