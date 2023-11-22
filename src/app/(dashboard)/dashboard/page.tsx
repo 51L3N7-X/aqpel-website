@@ -27,7 +27,7 @@ export default function Main() {
     user = await user.json();
     if (user.success == false && user.message == "Unauthorized") {
       localStorage.clear();
-      return router.push("/singin");
+      return router.push("/signin");
     }
 
     setIsAccessAble(true);

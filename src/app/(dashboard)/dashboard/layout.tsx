@@ -1,11 +1,14 @@
 import { ReactQueryProvider } from "./ReactQueryProvider";
+import { RestaurantProvider } from "./RestaurantContext";
 
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
 
   return (
-    
-      <ReactQueryProvider>{children}</ReactQueryProvider>
-    
+    <ReactQueryProvider>
+      <RestaurantProvider>
+        {children}
+      </RestaurantProvider>
+    </ReactQueryProvider>
   );
 }
