@@ -184,7 +184,7 @@ export default function Item({
       <h1>The Items</h1>
       {
         //@ts-ignore
-        items.map((item, index) => {
+        items?.map((item, index) => {
           return <ItemButton data={item} key={index}></ItemButton>;
         })
       }

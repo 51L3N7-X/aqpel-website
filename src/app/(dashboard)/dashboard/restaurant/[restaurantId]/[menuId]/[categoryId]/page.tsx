@@ -11,6 +11,7 @@ import {
 } from "@/app/(dashboard)/context/ItemsContext";
 import { getApi } from "@/app/(dashboard)/services/api/getApi";
 import useSWR from "swr";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface item {
   name: string;
@@ -29,19 +30,23 @@ export default function Page({
   params: { menuId: string; restaurantId: string; categoryId: string };
 }) {
   const router = useRouter();
-  const itemsState: { [key: string]: string } = useItems();
+  const itemsState: { [key: string]: item[] } = useItems();
   const dispatch = useItemsDispatch();
   // alert("hello");
 
-  const items = itemsState[params.categoryId];
-  async function fetcher(url:string) {
-    alert("im fetching");
+  const items = itemsState[String(params.categoryId)];
+  console.log(items, params.categoryId, itemsState);
+
+  async function fetcher(url: string, router: AppRouterInstance, items: item[], params: any) {
+
     //@ts-ignore
-    if (!items || items.length == 0) {
+    if (!items || Object.keys(items).length == 0) {
       const data = await getApi(
         url,
         router
       );
+
+
 
       //@ts-ignore
       dispatch({
@@ -55,6 +60,8 @@ export default function Page({
     return items;
   }
 
+
+
   // const { data, isLoading, isError, isFetched } = useQuery({
   //   queryKey: ["items", params.categoryId],
   //   queryFn: fetch,
@@ -64,7 +71,13 @@ export default function Page({
   // alert(`is fetched ${isFetched}`);
 
   const { data, error, isLoading } = useSWR(
-    `/restaurant/${params.restaurantId}/menu/${params.menuId}/categories/${params.categoryId}/items` , fetcher
+    `/restaurant/${params.restaurantId}/menu/${params.menuId}/categories/${params.categoryId}/items`, (url) => fetcher(url, router, items, params), {
+    // revalidateIfStale: true,
+    // revalidateOnMount: true,
+    // keepPreviousData: false,
+    revalidateOnFocus: false,
+
+  }
   );
   // useQuery({
   //   queryKey: ["items", params.categoryId],
@@ -90,7 +103,7 @@ export default function Page({
         category: params.categoryId,
       }}
       dispatchItems={dispatch}
-      items={items}
+      items={itemsState[params.categoryId]}
     ></Item>
   );
 }

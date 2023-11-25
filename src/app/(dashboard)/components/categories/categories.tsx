@@ -18,7 +18,6 @@ export default function Categories({
   dispatchCategories: any;
   ids: { restaurant: string; menu: string };
 }) {
-  console.log(categories)
   const [isAdding, setIsAdding] = useState(false);
   const [addCategoryBody, setAddCategoryBody] = useState<categorie>({
     imageUrl: "",

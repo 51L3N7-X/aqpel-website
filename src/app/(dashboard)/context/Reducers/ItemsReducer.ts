@@ -14,6 +14,7 @@ export function ItemsReducer(
   switch (action.type) {
     case "addFirstTime": {
       return {
+        ...state,
         [action.categorieId]: action.payload,
       };
     }

@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation'
 export default function ItemButton({ data }: { data: any }) {
     const path = usePathname();
     const router = useRouter();
-    console.log(path)
 
     return (
         <button onClick={e => {
