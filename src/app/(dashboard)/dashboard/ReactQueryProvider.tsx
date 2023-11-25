@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export function ReactQueryProvider({ children }: React.PropsWithChildren) {
   // console.log(process.env.NODE_ENV);
-  const [client] = React.useState(new QueryClient());
+  const [client] = React.useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={client}>

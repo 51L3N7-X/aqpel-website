@@ -10,11 +10,11 @@ interface menu {
 
 export default function Menu({
   menu,
-  setMenu,
+  disPatchMenu,
   ids,
 }: {
   menu: any;
-  setMenu: any;
+  disPatchMenu: any;
   ids: any;
 }) {
   const [isAdding, setIsAdding] = useState(false);
@@ -41,7 +41,11 @@ export default function Menu({
     if (data?.success == false) return alert(data?.message);
 
     setIsAdding(false);
-    setMenu(data);
+    disPatchMenu({
+      type: "added",
+      payload: data,
+      id: data._id,
+    });
   };
 
   if (isAdding) {

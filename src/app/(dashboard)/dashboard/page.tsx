@@ -4,39 +4,30 @@ import React from "react";
 import Dashboard from "../components/dashbaord/dashboard";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useUser, useUserDispatch } from "../context/UserContext";
+import { getApi } from "../services/api/getApi";
 
 export default function Main() {
   const router = useRouter();
   const [isAccessAble, setIsAccessAble] = useState<boolean>(false);
-  const [user, setUser] = useState<any>({});
-  const [restaurant, setRestaurant] = useState<any>({});
+  const user = useUser();
+  const dispatch = useUserDispatch();
+
+  console.log(user);
 
   useEffect(() => {
-    checkUser(localStorage.getItem("token"));
-  }, []);
-  const checkUser = async (token: string | null) => {
-    if (!token) return router.push("/signin");
-
-    let user: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/`, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    });
-
-    user = await user.json();
-    if (user.success == false && user.message == "Unauthorized") {
-      localStorage.clear();
-      return router.push("/signin");
+    //@ts-ignore
+    if (Object.keys(user) == 0) {
+      getApi("/user", router).then((user) =>
+        //@ts-ignore
+        dispatch({
+          type: "added",
+          payload: user,
+          id: user._id,
+        })
+      );
     }
+  });
 
-    setIsAccessAble(true);
-    setUser(user);
-  };
-
-  return isAccessAble ? (
-    <Dashboard user={user}></Dashboard>
-  ) : (
-    <div>Loading ...</div>
-  );
+  return <Dashboard user={user}></Dashboard>;
 }

@@ -2,13 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ItemButton from "../ItemButton/ItemButton";
-import { useRestaurantDispatch } from "../../dashboard/RestaurantContext";
+import { useRestaurantDispatch } from "../../context/RestaurantContext";
 
-export default function Restaurant({
-  restaurant,
-}: {
-  restaurant: any;
-}) {
+export default function Restaurant({ restaurant }: { restaurant: any }) {
   const dispatch = useRestaurantDispatch();
   const [isAdding, setIsAdding] = useState(false);
   const [addRestaurantBody, setAddRestaurantBody] = useState<{
@@ -35,7 +31,7 @@ export default function Restaurant({
     console.log(data);
     if (data?.success == false) return alert(data?.message);
     //@ts-ignore
-    dispatch({ type: 'added', payload: data })
+    dispatch({ type: "added", payload: data });
     setIsAdding(false);
   };
 

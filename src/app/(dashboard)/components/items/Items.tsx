@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
@@ -16,11 +17,11 @@ interface item {
 
 export default function Item({
   items,
-  setItems,
+  dispatchItems,
   ids,
 }: {
-  items: item[];
-  setItems: any;
+  items: any;
+  dispatchItems: any;
   ids: { restaurant: string; menu: string; category: string };
 }) {
   const [isAdding, setIsAdding] = useState(false);
@@ -35,7 +36,6 @@ export default function Item({
     imageUrl: "",
   });
 
-  
   const onAddItem = async (e: any) => {
     e.preventDefault();
     const token: any = localStorage.getItem("token");
@@ -55,7 +55,12 @@ export default function Item({
     if (data?.success == false) return alert(data?.message);
 
     setIsAdding(false);
-    setItems([...items, data]);
+    dispatchItems({
+      type: "added",
+      payload: data,
+      id: data._id,
+      categorieId: ids.category,
+    });
   };
 
   if (isAdding) {
@@ -118,7 +123,6 @@ export default function Item({
           <br />
           <input
             type="number"
-            
             onChange={(e) =>
               setAddItemBody({
                 ...addItemBody,
@@ -131,7 +135,6 @@ export default function Item({
 
           <input
             type="checkbox"
-            
             onChange={(e) =>
               setAddItemBody({
                 ...addItemBody,
@@ -144,7 +147,6 @@ export default function Item({
 
           <input
             type="checkbox"
-            
             onChange={(e) =>
               setAddItemBody({
                 ...addItemBody,
@@ -172,9 +174,7 @@ export default function Item({
   return (
     <div className="">
       <p>
-        <Link
-          href={"/dashboard/restaurant/" + ids.restaurant + "/" + ids.menu}
-        >
+        <Link href={"/dashboard/restaurant/" + ids.restaurant + "/" + ids.menu}>
           Back to the Categories
         </Link>
         <br />
@@ -182,9 +182,12 @@ export default function Item({
       </p>
 
       <h1>The Items</h1>
-      {items.map((item, index) => {
-        return <ItemButton data={item} key={index}></ItemButton>;
-      })}
+      {
+        //@ts-ignore
+        items.map((item, index) => {
+          return <ItemButton data={item} key={index}></ItemButton>;
+        })
+      }
       <button onClick={() => setIsAdding(true)}>Add Item</button>
     </div>
   );

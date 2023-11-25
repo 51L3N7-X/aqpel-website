@@ -11,13 +11,14 @@ interface categorie {
 
 export default function Categories({
   categories,
-  setCategories,
+  dispatchCategories,
   ids,
 }: {
-  categories: any[];
-  setCategories: any;
+  categories: any;
+  dispatchCategories: any;
   ids: { restaurant: string; menu: string };
 }) {
+  console.log(categories)
   const [isAdding, setIsAdding] = useState(false);
   const [addCategoryBody, setAddCategoryBody] = useState<categorie>({
     imageUrl: "",
@@ -44,7 +45,7 @@ export default function Categories({
     if (data?.success == false) return alert(data?.message);
 
     setIsAdding(false);
-    setCategories([...categories, data]);
+    dispatchCategories({ type: "added", payload: data, id: data._id });
   };
 
   if (isAdding) {
@@ -103,9 +104,13 @@ export default function Categories({
       </p>
 
       <h1>The Categories</h1>
-      {categories.map((categorie, index) => {
-        return <ItemButton data={categorie} key={index}></ItemButton>;
-      })}
+      {categories.map(
+        //@ts-ignore
+        (categorie, index) => {
+          // console.log(categorie)
+          return <ItemButton data={categorie} key={index}></ItemButton>;
+        }
+      )}
       <button onClick={() => setIsAdding(true)}>Add Category</button>
     </div>
   );

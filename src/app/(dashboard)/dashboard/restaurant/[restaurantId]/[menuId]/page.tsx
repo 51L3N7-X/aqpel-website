@@ -2,9 +2,16 @@
 import React from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Categories from "@/app/(dashboard)/components/categories/categories";
+import { getApi } from "@/app/(dashboard)/services/api/getApi";
+import {
+  useCategorie,
+  useCategorieDispatch,
+} from "@/app/(dashboard)/context/CategoriesContext";
+import type { EffectCallback } from "react";
+import { useRef } from "react";
 
 interface categorie {
   name: string;
@@ -18,41 +25,38 @@ export default function Page({
   params: { menuId: string; restaurantId: string };
 }) {
   const router = useRouter();
-  const [categories, setCategories] = useState<categorie[]>([]);
+  const categories = useCategorie();
+  const dispatch = useCategorieDispatch();
 
-  const getCategories = async (): Promise<any> => {
-    const token: any = localStorage.getItem("token");
-    const data: any = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/restaurant/${params.restaurantId}/menu/${params.menuId}/categories`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: token,
-        },
-      }
-    ).then((res) => res.json());
+  async function fetch() {
+    //@ts-ignore
+    if (categories.length == 0) {
+      const data = await getApi(
+        `/restaurant/${params.restaurantId}/menu/${params.menuId}/categories`,
+        router
+      );
 
-    if (!data?.success && data?.message == "Unauthorized") {
-      localStorage.clear();
-      return router.push("/signin");
+      //@ts-ignore
+      dispatch({
+        type: "addFirstTime",
+        payload: data,
+        // id: data._id,
+      });
+      return data;
     }
-
-    console.log(data);
-
-    setCategories(data);
-    return data;
-  };
+    return categories;
+  }
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: fetch,
   });
 
   if (isLoading) return <div>Loading...</div>;
   return (
     <Categories
       categories={categories}
-      setCategories={setCategories}
+      dispatchCategories={dispatch}
       ids={{ menu: params.menuId, restaurant: params.restaurantId }}
     ></Categories>
   );
