@@ -7,6 +7,7 @@ import { useTables, useTablesDispatch } from "../../context/TablesContext";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Fragment } from "react";
+import TablesInputs from "../../components/tablesInputs/TablesInputs";
 
 interface table {
   number: number;
@@ -16,14 +17,14 @@ interface table {
   sendTo?: string;
   code?: string;
   restaurant_id: string;
-  id:string;
+  _id: string;
 }
 
 //todo: add tables like waiters, and useContext array for all tables
 
 export default function Tables() {
   const tables: table[] = useTables();
-  const disptach = useTablesDispatch();
+  const dispatch = useTablesDispatch();
   const router = useRouter();
 
   async function fetch() {
@@ -68,7 +69,7 @@ export default function Tables() {
           <Fragment key={index}>
             <br />
             <TableContainer
-              id={table.id}
+              id={table._id}
               newTable={false}
               table={table}
             ></TableContainer>
@@ -93,14 +94,14 @@ function TableContainer({
   return (
     <div>
       <button onClick={() => setIsAdding((val) => !val)}>
-        {newTable ? (isAdding ? "X close" : "+ Add Waiter") : table?.number}
+        {newTable ? (isAdding ? "X close" : "+ Add Table") : table?.number}
       </button>
       {isAdding && (
-        <TableInputs
+        <TablesInputs
           id={id}
           table={table}
           newTable={newTable}
-        ></TableInputs>
+        ></TablesInputs>
       )}
     </div>
   );

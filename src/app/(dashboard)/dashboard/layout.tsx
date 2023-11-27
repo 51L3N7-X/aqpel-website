@@ -10,15 +10,15 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   return (
     <ReactQueryProvider>
       <UserProvider>
-        <TablesProvider>
-          <RestaurantProvider>
+        <RestaurantProvider>
+          <TablesProvider>
             <MenuProvider>
               <CategorieProvider>
                 <ItemsProvider>{children}</ItemsProvider>
               </CategorieProvider>
             </MenuProvider>
-          </RestaurantProvider>
-        </TablesProvider>
+          </TablesProvider>
+        </RestaurantProvider>
       </UserProvider>
     </ReactQueryProvider>
   );

@@ -8,7 +8,7 @@ interface table {
   sendTo?: string;
   code?: string;
   restaurant_id: string;
-  id: string;
+  _id: string;
 }
 
 import { createContext, useContext, useReducer } from "react";
