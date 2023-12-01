@@ -3,17 +3,7 @@ import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import ItemButton from "../ItemButton/ItemButton";
-
-interface item {
-  name: string;
-  price: string;
-  description: string;
-  calories: string;
-  people: string;
-  new: boolean;
-  special: boolean;
-  imageUrl: string;
-}
+import { item } from "../../types";
 
 export default function Item({
   items,

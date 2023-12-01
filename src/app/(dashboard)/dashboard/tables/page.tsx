@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Fragment } from "react";
 import TablesInputs from "../../components/tablesInputs/TablesInputs";
+import { useRestaurant, useRestaurantDispatch } from "../../context/RestaurantContext";
 
 interface table {
   number: number;
@@ -24,7 +25,9 @@ interface table {
 
 export default function Tables() {
   const tables: table[] = useTables();
-  const dispatch = useTablesDispatch();
+  const tablesDisptach = useTablesDispatch();
+  const restaurant = useRestaurant();
+  const restaurantDispatch = useRestaurantDispatch()
   const router = useRouter();
 
   async function fetch() {
@@ -33,7 +36,7 @@ export default function Tables() {
       const data = await getApi(`/tables`, router);
 
       //@ts-ignore
-      dispatch({
+      tablesDisptach({
         type: "addFirstTime",
         payload: data,
         // id: data._id,

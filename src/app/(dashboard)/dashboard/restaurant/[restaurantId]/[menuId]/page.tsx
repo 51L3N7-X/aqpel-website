@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Categories from "@/app/(dashboard)/components/categories/categories";
 import { getApi } from "@/app/(dashboard)/services/api/getApi";
@@ -10,14 +8,7 @@ import {
   useCategorie,
   useCategorieDispatch,
 } from "@/app/(dashboard)/context/CategoriesContext";
-import type { EffectCallback } from "react";
-import { useRef } from "react";
 
-interface categorie {
-  name: string;
-  imageUrl: string;
-  description: string;
-}
 
 export default function Page({
   params,

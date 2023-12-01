@@ -11,7 +11,7 @@ export default function Restaurant({ restaurant }: { restaurant: any }) {
     name: string;
     description: string;
   }>({ name: "", description: "" });
-
+  console.log(restaurant);
   const onAddRestaurant = async (e: any) => {
     e.preventDefault();
     const token: any = localStorage.getItem("token");
@@ -28,10 +28,9 @@ export default function Restaurant({ restaurant }: { restaurant: any }) {
     );
 
     const data = await response.json();
-    console.log(data);
     if (data?.success == false) return alert(data?.message);
     //@ts-ignore
-    dispatch({ type: "added", payload: data });
+    dispatch({ type: "added", payload: { ...data, data: true } });
     setIsAdding(false);
   };
 
@@ -79,7 +78,9 @@ export default function Restaurant({ restaurant }: { restaurant: any }) {
       </p>
 
       <h1>The Restaurant</h1>
-      {restaurant && Object.keys(restaurant).length ? (
+      {restaurant &&
+      Object.keys(restaurant).length &&
+      restaurant.data != false ? (
         <ItemButton data={restaurant}></ItemButton>
       ) : (
         <button onClick={() => setIsAdding(true)}>Add Restuarant</button>

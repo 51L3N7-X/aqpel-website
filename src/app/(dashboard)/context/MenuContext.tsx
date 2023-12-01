@@ -1,11 +1,14 @@
 "use client";
 
 import { createContext, useContext, useReducer } from "react";
-import { Reducer } from "./Reducers/ObjectReducer";
+import { ObjectAction, Reducer } from "./Reducers/ObjectReducer";
+import { menu } from "../types";
 
-const MenuContext = createContext(null);
+const MenuContext = createContext({});
 
-const MenuDispatchContext = createContext(null);
+const MenuDispatchContext = createContext<(action: ObjectAction) => void>(
+  () => {}
+);
 
 export function MenuProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch]: any[] = useReducer(Reducer, intialState);

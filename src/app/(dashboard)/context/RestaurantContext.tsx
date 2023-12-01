@@ -1,11 +1,12 @@
 "use client";
 
 import { createContext, useContext, useReducer } from "react";
-import { Reducer } from "./Reducers/ObjectReducer";
+import { ObjectAction, Reducer } from "./Reducers/ObjectReducer";
+import { restaurant } from "../types";
 
-const RestaurantContext = createContext(null);
+const RestaurantContext = createContext<restaurant>({});
 
-const RestaurantDispatchContext = createContext(null);
+const RestaurantDispatchContext = createContext<(action : ObjectAction) => void>(() => {});
 
 export function RestaurantProvider({
   children,

@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTables, useTablesDispatch } from "../../context/TablesContext";
 import { useRestaurant } from "../../context/RestaurantContext";
-import { routeModule } from "next/dist/build/templates/app-page";
 import { useRouter } from "next/navigation";
-
-interface table {
-  number: number;
-  description?: string;
-  restaurant_name: string | null;
-  palce?: string;
-  sendTo?: string;
-  code?: string;
-  restaurant_id: string;
-  id?: string;
-}
+import { table } from "../../types";
 
 export default function TablesInputs({
   table,
@@ -31,7 +20,7 @@ export default function TablesInputs({
     // id: ""
   });
 
-  const router = useRouter()
+  const router = useRouter();
   const tables = useTables();
   const disptach = useTablesDispatch();
   const restaurant: any = useRestaurant();
@@ -107,11 +96,9 @@ export default function TablesInputs({
       disptach({
         type: "changed",
         payload: data,
-        id: data._id
-      })
+        id: data._id,
+      });
     }
-
-
   };
 
   return (
@@ -123,8 +110,8 @@ export default function TablesInputs({
           onChange={(e) => {
             setTableData({
               ...tableData,
-              number: +e.target.value
-            })
+              number: +e.target.value,
+            });
           }}
           value={tableData.number}
           required
@@ -136,8 +123,8 @@ export default function TablesInputs({
           onChange={(e) => {
             setTableData({
               ...tableData,
-              description: e.target.value
-            })
+              description: e.target.value,
+            });
           }}
           value={tableData.description}
           required
@@ -149,8 +136,8 @@ export default function TablesInputs({
           onChange={(e) => {
             setTableData({
               ...tableData,
-              palce: e.target.value
-            })
+              palce: e.target.value,
+            });
           }}
           value={tableData.palce}
           required

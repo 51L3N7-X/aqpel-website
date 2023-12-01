@@ -2,13 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import ItemButton from "../ItemButton/ItemButton";
-
-interface categorie {
-  name: string;
-  imageUrl: string;
-  description: string;
-}
-
+import { categorie } from "../../types";
 export default function Categories({
   categories,
   dispatchCategories,

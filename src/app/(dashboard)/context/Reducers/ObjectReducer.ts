@@ -7,6 +7,12 @@ export function Reducer(
       return {
         ...state,
         ...action.payload,
+        data: true,
+      };
+    }
+    case "noData": {
+      return {
+        data: false,
       };
     }
     case "changed": {
@@ -23,4 +29,10 @@ export function Reducer(
       throw Error("Unknown action: " + action.type);
     }
   }
+}
+
+export interface ObjectAction {
+  type: string;
+  payload?: object;
+  id?: string;
 }

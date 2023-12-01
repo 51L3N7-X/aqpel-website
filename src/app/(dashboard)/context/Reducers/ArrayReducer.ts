@@ -4,7 +4,7 @@ export function ArrayReducer(
 ) {
   switch (action.type) {
     case "addFirstTime": {
-      return action.payload
+      return action.payload;
     }
     case "added": {
       return [...state, action.payload];
@@ -22,4 +22,10 @@ export function ArrayReducer(
       throw Error("Unknown action: " + action.type);
     }
   }
+}
+
+export interface ArrayAction {
+  payload?: Array<object>;
+  type: string;
+  id?: string;
 }

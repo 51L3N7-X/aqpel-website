@@ -6,29 +6,37 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useUser, useUserDispatch } from "../context/UserContext";
 import { getApi } from "../services/api/getApi";
-import { useRestaurant, useRestaurantDispatch } from "../context/RestaurantContext";
+import {
+  useRestaurant,
+  useRestaurantDispatch,
+} from "../context/RestaurantContext";
 
 export default function Main() {
   const router = useRouter();
-  const [isAccessAble, setIsAccessAble] = useState<boolean>(false);
+  // const [isAccessAble, setIsAccessAble] = useState<boolean>(false);
   const user = useUser();
   const userDispatch = useUserDispatch();
   const restaurant = useRestaurant();
-  const restaurantDispatch = useRestaurantDispatch()
+  const restaurantDispatch = useRestaurantDispatch();
 
   console.log(user);
 
   useEffect(() => {
     //@ts-ignore
     if (Object.keys(user) == 0) {
-      getApi("/user", router).then((user) =>
+      getApi("/user", router).then((userData) => {
+        if (
+          (userData && Object.keys(userData).length == 0) ||
+          userData.success == false
+        )
+          return router.push("/signin");
         //@ts-ignore
         userDispatch({
           type: "added",
-          payload: user,
-          id: user._id,
-        })
-      );
+          payload: userData,
+          id: userData._id,
+        });
+      });
     }
 
     //@ts-ignore
@@ -38,11 +46,11 @@ export default function Main() {
         restaurantDispatch({
           type: "added",
           payload: restaurant,
-          id: restaurant._id
+          id: restaurant._id,
         })
-      )
+      );
     }
-  });
+  }, []);
 
   return <Dashboard user={user}></Dashboard>;
 }

@@ -1,6 +1,4 @@
-interface item {
-  id: string;
-}
+import { item } from "../../types";
 
 export function ItemsReducer(
   state: any,
@@ -45,4 +43,11 @@ export function ItemsReducer(
       throw Error("Unknown action: " + action.type);
     }
   }
+}
+
+export interface itemsAction {
+  id?: string;
+  type: string;
+  payload?: Array<item>;
+  categorieId: string;
 }

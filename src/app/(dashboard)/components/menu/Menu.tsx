@@ -2,21 +2,18 @@ import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ItemButton from "../ItemButton/ItemButton";
-
-interface menu {
-  restaurant_name?: string | any;
-  name: string;
-}
+import { menu } from "../../types";
 
 export default function Menu({
   menu,
-  disPatchMenu,
+  disptachMenu: disptachMenu,
   ids,
 }: {
   menu: any;
-  disPatchMenu: any;
+  disptachMenu: any;
   ids: any;
 }) {
+  console.log(menu);
   const [isAdding, setIsAdding] = useState(false);
   const [addMenuBody, setAddMenuBody] = useState<menu>({
     name: "",
@@ -41,7 +38,7 @@ export default function Menu({
     if (data?.success == false) return alert(data?.message);
 
     setIsAdding(false);
-    disPatchMenu({
+    disptachMenu({
       type: "added",
       payload: data,
       id: data._id,
@@ -81,7 +78,7 @@ export default function Menu({
       </p>
 
       <h1>The Menu</h1>
-      {menu && Object.keys(menu).length ? (
+      {menu && Object.keys(menu).length && menu?.data !== false ? (
         <ItemButton data={menu}></ItemButton>
       ) : (
         <button onClick={() => setIsAdding(true)}>Add Menu</button>

@@ -12,11 +12,13 @@ interface item {
 }
 
 import { createContext, useContext, useReducer } from "react";
-import { ItemsReducer } from "./Reducers/ItemsReducer";
+import { ItemsReducer, itemsAction } from "./Reducers/ItemsReducer";
 
 const ItemsContext = createContext({});
 
-const ItemsDispatchContext = createContext(null);
+const ItemsDispatchContext = createContext<(action: itemsAction) => void>(
+  () => {}
+);
 
 export function ItemsProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch]: any = useReducer(ItemsReducer, intialState);

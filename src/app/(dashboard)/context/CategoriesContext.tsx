@@ -8,11 +8,13 @@ interface categorie {
 }
 
 import { createContext, useContext, useReducer } from "react";
-import { ArrayReducer } from "./Reducers/ArrayReducer";
+import { ArrayAction, ArrayReducer } from "./Reducers/ArrayReducer";
 
-const CategorieContext = createContext(null);
+const CategorieContext = createContext([]);
 
-const CategorieDispatchContext = createContext(null);
+const CategorieDispatchContext = createContext<(action: ArrayAction) => void>(
+  () => {}
+);
 
 export function CategorieProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch]: any = useReducer(ArrayReducer, intialState);

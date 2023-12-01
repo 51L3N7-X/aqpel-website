@@ -1,11 +1,13 @@
 "use client";
 
 import { createContext, useContext, useReducer } from "react";
-import { Reducer } from "./Reducers/ObjectReducer";
+import { ObjectAction, Reducer } from "./Reducers/ObjectReducer";
 
 const UserContext = createContext({});
 
-const UserDispatchContext = createContext({});
+const UserDispatchContext = createContext<(action: ObjectAction) => void>(
+  () => {}
+);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch]: any[] = useReducer(Reducer, initialState);

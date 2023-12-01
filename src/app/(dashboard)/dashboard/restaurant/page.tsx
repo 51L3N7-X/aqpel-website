@@ -5,7 +5,6 @@ import Restaurant from "../../components/restaurant/restaurant";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getApi } from "../../services/api/getApi";
-// import { useQuery } from "@tanstack/react-query";
 import {
   useRestaurant,
   useRestaurantDispatch,
@@ -17,14 +16,18 @@ export default function Page() {
   const router = useRouter();
 
   useEffect(() => {
-    //@ts-ignore
-    if (Object.keys(restaurant) == 0) {
-      getApi("/restaurant", router).then((data) =>
-        //@ts-ignore
-        dispatch({ type: "added", payload: data, id: data._id })
-      );
+    if (Object.keys(restaurant).length == 0) {
+      getApi("/restaurant", router).then((data) => {
+        if (data && Object.keys(data).length == 0)
+          return dispatch({ type: "noData" });
+        dispatch({
+          type: "added",
+          payload: data,
+          id: data._id,
+        });
+      });
     }
-  } , []);
+  }, []);
 
   // const { data, isLoading, isError } = useQuery({
   //   queryKey: ["restaurant"],

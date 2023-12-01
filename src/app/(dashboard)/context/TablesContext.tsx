@@ -12,11 +12,13 @@ interface table {
 }
 
 import { createContext, useContext, useReducer } from "react";
-import { ArrayReducer } from "./Reducers/ArrayReducer";
+import { ArrayAction, ArrayReducer } from "./Reducers/ArrayReducer";
 
 const TablesContext = createContext([]);
 
-const TablesDispatchContext = createContext(null);
+const TablesDispatchContext = createContext<(action: ArrayAction) => void>(
+  () => {}
+);
 
 export function TablesProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch]: any = useReducer(ArrayReducer, intialState);
@@ -30,7 +32,7 @@ export function TablesProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useTables() : table[]  {
+export function useTables(): table[] {
   return useContext(TablesContext);
 }
 
