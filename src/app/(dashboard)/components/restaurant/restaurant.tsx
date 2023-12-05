@@ -11,7 +11,6 @@ export default function Restaurant({ restaurant }: { restaurant: any }) {
     name: string;
     description: string;
   }>({ name: "", description: "" });
-  console.log(restaurant);
   const onAddRestaurant = async (e: any) => {
     e.preventDefault();
     const token: any = localStorage.getItem("token");

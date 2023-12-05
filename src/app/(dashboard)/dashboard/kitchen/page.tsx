@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import KitchenInputs from "../../components/kitchen/KitchenInputs";
 import { useKitchen, useKitchenDispatch } from "../../context/KitchenContext";
 import { useRouter } from "next/navigation";
-import { kitchen } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { getApi } from "../../services/api/getApi";
 import Link from "next/link";
@@ -16,12 +15,10 @@ export default function Kitchen() {
   async function fetch() {
     if (Object.keys(kitchen).length == 0) {
       const data = await getApi(`/kitchen`, router);
-      console.log("data" , data)
       await kitchenDispatch({
         type: "added",
         payload: data,
       });
-        console.log("kitchen", kitchen);
       return data;
     }
     return kitchen;

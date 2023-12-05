@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer , useEffect} from "react";
 import { ObjectAction, Reducer } from "./Reducers/ObjectReducer";
 import { restaurant } from "../types";
 import { useRouter } from "next/navigation";
@@ -17,8 +17,10 @@ export function RestaurantProvider({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const [tasks, dispatch]: any[] = useReducer(Reducer, initialTasks);
+  useEffect(() => {
   if (!localStorage.getItem("restaurant_name")) router.push("/dashboard");
+  } , [])
+  const [tasks, dispatch]: any[] = useReducer(Reducer, initialTasks);
   return (
     <RestaurantContext.Provider value={tasks}>
       <RestaurantDispatchContext.Provider value={dispatch}>
