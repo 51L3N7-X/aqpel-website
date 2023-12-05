@@ -18,7 +18,7 @@ export default function Page({ params }: { params: { restaurantId: string } }) {
   useEffect(() => {
     if (Object.keys(menu).length == 0) {
       getApi(`/restaurant/${params.restaurantId}/menu`, router).then((data) => {
-        if (data && Object.keys(menu).length == 0) {
+        if (data && Object.keys(data).length == 0) {
           return dispatch({
             type: "noData",
           });

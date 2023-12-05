@@ -27,7 +27,7 @@ export default function TablesInputs({
 
   useEffect(() => {
     //@ts-ignore
-    if (Object.keys(restaurant) == 0) return router.push("/dashboard");
+    // if (Object.keys(restaurant) == 0) return router.push("/dashboard");
     if (table && Object.keys(table).length != 0) setTableData(table);
   }, [table]);
 
@@ -53,7 +53,6 @@ export default function TablesInputs({
         }
       );
       const data = await response.json();
-      console.log(data);
       if (data?.success == false) {
         return alert(data.message);
       }

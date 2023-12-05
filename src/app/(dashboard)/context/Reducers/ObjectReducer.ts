@@ -19,6 +19,7 @@ export function Reducer(
       return {
         ...state,
         ...action.payload,
+        data: true,
       };
     }
     case "deleted": {

@@ -8,7 +8,10 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Fragment } from "react";
 import TablesInputs from "../../components/tablesInputs/TablesInputs";
-import { useRestaurant, useRestaurantDispatch } from "../../context/RestaurantContext";
+import {
+  useRestaurant,
+  useRestaurantDispatch,
+} from "../../context/RestaurantContext";
 
 interface table {
   number: number;
@@ -27,15 +30,13 @@ export default function Tables() {
   const tables: table[] = useTables();
   const tablesDisptach = useTablesDispatch();
   const restaurant = useRestaurant();
-  const restaurantDispatch = useRestaurantDispatch()
+  const restaurantDispatch = useRestaurantDispatch();
   const router = useRouter();
 
   async function fetch() {
-    //@ts-ignore
     if (tables.length == 0) {
       const data = await getApi(`/tables`, router);
 
-      //@ts-ignore
       tablesDisptach({
         type: "addFirstTime",
         payload: data,
@@ -89,7 +90,7 @@ function TableContainer({
   id,
 }: {
   newTable: boolean;
-  table?: table
+  table?: table;
   id?: string;
 }) {
   const [isAdding, setIsAdding] = useState(false);
@@ -100,11 +101,7 @@ function TableContainer({
         {newTable ? (isAdding ? "X close" : "+ Add Table") : table?.number}
       </button>
       {isAdding && (
-        <TablesInputs
-          id={id}
-          table={table}
-          newTable={newTable}
-        ></TablesInputs>
+        <TablesInputs id={id} table={table} newTable={newTable}></TablesInputs>
       )}
     </div>
   );

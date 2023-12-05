@@ -48,3 +48,9 @@ export interface Waiter {
   _id?: string;
   tables: Array<string>;
 }
+
+export interface kitchen {
+  restaurant_name: string;
+  username: string;
+  password: string;
+}

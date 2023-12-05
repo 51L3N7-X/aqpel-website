@@ -22,15 +22,14 @@ export default function Main() {
   console.log(user);
 
   useEffect(() => {
-    //@ts-ignore
-    if (Object.keys(user) == 0) {
+    if (Object.keys(user).length == 0) {
       getApi("/user", router).then((userData) => {
         if (
           (userData && Object.keys(userData).length == 0) ||
           userData.success == false
         )
           return router.push("/signin");
-        //@ts-ignore
+
         userDispatch({
           type: "added",
           payload: userData,
@@ -39,10 +38,8 @@ export default function Main() {
       });
     }
 
-    //@ts-ignore
-    if (Object.keys(restaurant) == 0) {
+    if (Object.keys(restaurant).length == 0) {
       getApi("/restaurant", router).then((restaurant) =>
-        //@ts-ignore
         restaurantDispatch({
           type: "added",
           payload: restaurant,
