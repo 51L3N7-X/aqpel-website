@@ -3,7 +3,7 @@
 import React from "react";
 import Dashboard from "../components/dashbaord/dashboard";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useUser, useUserDispatch } from "../context/UserContext";
 import { getApi } from "../services/api/getApi";
 import {
@@ -13,20 +13,19 @@ import {
 
 export default function Main() {
   const router = useRouter();
-  // const [isAccessAble, setIsAccessAble] = useState<boolean>(false);
   const user = useUser();
   const userDispatch = useUserDispatch();
   const restaurant = useRestaurant();
   const restaurantDispatch = useRestaurantDispatch();
 
-  console.log(user);
-
   useEffect(() => {
     if (Object.keys(user).length == 0) {
       getApi("/user", router).then((userData) => {
+        console.log(userData);
         if (
+          !userData ||
           (userData && Object.keys(userData).length == 0) ||
-          userData.success == false
+          (userData && userData.success == false)
         )
           return router.push("/signin");
 
@@ -35,17 +34,21 @@ export default function Main() {
           payload: userData,
           id: userData._id,
         });
-      });
-    }
 
-    if (Object.keys(restaurant).length == 0) {
-      getApi("/restaurant", router).then((restaurant) =>
-        restaurantDispatch({
-          type: "added",
-          payload: restaurant,
-          id: restaurant._id,
-        })
-      );
+        if (Object.keys(restaurant).length == 0) {
+          getApi("/restaurant", router).then((restaurant) => {
+            if (!Object.keys(restaurant).length)
+              return restaurantDispatch({
+                type: "noData",
+              });
+            restaurantDispatch({
+              type: "added",
+              payload: restaurant,
+              id: restaurant._id,
+            });
+          });
+        }
+      });
     }
   }, []);
 

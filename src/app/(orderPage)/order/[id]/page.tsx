@@ -1,7 +1,8 @@
 "use server";
 
 import { notFound } from "next/navigation";
-import Order from "../../components/order/Order/Order";
+import Order from "../../components/order/OrderPage/Order/Order";
+import { useEffect } from "react";
 
 // export const dynamicParams = false;
 
@@ -10,15 +11,16 @@ import Order from "../../components/order/Order/Order";
 // }
 
 async function getData(id: string) {
-  const res = await fetch(`https://aqpelv2.jjjjkkjjjjkkm.repl.co/v1/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${id}`);
 
   if (!(res.status == 200)) return notFound();
 
-  return res.json();
+  const response = res.json();
+  if (!response) return notFound();
+  return response;
 }
 
-
 export default async function Page({ params }: { params: { id: string } }) {
-const data = await getData(params.id);
-return <Order params={params} table={data.table}></Order>
+  const data = await getData(params.id);
+  return <Order params={params} table={data.table}></Order>;
 }

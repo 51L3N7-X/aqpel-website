@@ -33,7 +33,7 @@ export function Reducer(
 }
 
 export interface ObjectAction {
-  type: string;
+  type: "added" | "noData" | "changed" | "deleted";
   payload?: object;
   id?: string;
 }

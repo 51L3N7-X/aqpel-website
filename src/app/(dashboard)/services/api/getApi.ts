@@ -14,7 +14,7 @@ export async function getApi(url: string, router: AppRouterInstance) {
     return router.push("/signin");
   }
 
-  if (url == "restaurant")
+  if (url == "/restaurant")
     window.localStorage.setItem("restaurant_name", data?.name);
   return data;
 }

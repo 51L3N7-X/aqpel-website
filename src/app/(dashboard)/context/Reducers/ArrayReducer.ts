@@ -26,6 +26,6 @@ export function ArrayReducer(
 
 export interface ArrayAction {
   payload?: Array<object>;
-  type: string;
+  type: "addFirstTime" | "added" | "changed" | "deleted";
   id?: string;
 }

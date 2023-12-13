@@ -1,26 +1,31 @@
-"use client"
-import "./globals.css"
+"use client";
+import "./test.css";
 import React from "react";
-import { Suspense } from "react";
-import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { socket, waiter } from "./socket";
-import NavBar from "../../order/NavBar/Navbar";
-import Button from "../../order/Button/Button";
-import Buttons from "../../order/Buttons/Buttons";
+import NavBar from "../NavBar/Navbar";
+import Button from "../Button/Button";
+import Buttons from "../Buttons/Buttons";
 import style from "./order.module.css";
 import Image from "next/image";
-import Loading from "../../order/Loading/Loading";
-import Received from "../../order/Received/Received";
+import Loading from "../Loading/Loading";
+import Received from "../Received/Received";
+import { useRouter } from "next/navigation";
 
-export default function Order({ params, table }: { params: { id: string }, table: any }) {
-  console.log(table);
+export default function Order({
+  params,
+  table,
+}: {
+  params: { id: string };
+  table: any;
+}) {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
   const [isOrderReceived, setIsOrderReceived] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [callingName, setCallingName] = useState("");
   const [receivedData, setReceivedData] = useState<any>({});
+  const router = useRouter()
 
   useEffect(() => {
     socket.connect();
@@ -29,7 +34,7 @@ export default function Order({ params, table }: { params: { id: string }, table
     socket.emit("subscribe", String(params.id));
     // waiter.emit("subscribe", [String(params.id)]);
 
-    function onDone({ name, photoUrl }: { name: string, photoUrl: string }) {
+    function onDone({ name, photoUrl }: { name: string; photoUrl: string }) {
       setIsLoading((current) => false);
       setIsOrderReceived((current) => true);
       setReceivedData({ name, photoUrl });
@@ -47,17 +52,18 @@ export default function Order({ params, table }: { params: { id: string }, table
     socket.on("disconnect", onDisconnect);
     socket.on("waiter:notfiyOrderIsDone", onDone);
 
+    localStorage.setItem("table", JSON.stringify(table));
+
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
-      socket.off("waiter:notfiyOrderIsDone", onDone)
+      socket.off("waiter:notfiyOrderIsDone", onDone);
     };
-  }, [params.id]);
-
+  }, [params.id , table]);
 
   function onOrder(name: string) {
     if (name == "Menu") {
-      return;
+      return router.push(`${params.id}/menu`)
     }
 
     setCallingName(name);
@@ -78,8 +84,6 @@ export default function Order({ params, table }: { params: { id: string }, table
     //      "https://toppng.com/uploads/preview/user-account-management-logo-user-icon-11562867145a56rus2zwu.png",
     //  });
     //   } ,3000)
-
-
 
     // setTimeout(() => {
     //   setIsLoading((current) => !current);

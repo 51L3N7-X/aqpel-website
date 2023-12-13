@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useTables, useTablesDispatch } from "../../context/TablesContext";
+import { useTablesDispatch } from "../../context/TablesContext";
 import { useRestaurant } from "../../context/RestaurantContext";
-import { useRouter } from "next/navigation";
 import { table } from "../../types";
 
 export default function TablesInputs({
@@ -20,14 +19,10 @@ export default function TablesInputs({
     // id: ""
   });
 
-  const router = useRouter();
-  const tables = useTables();
   const disptach = useTablesDispatch();
   const restaurant: any = useRestaurant();
 
   useEffect(() => {
-    //@ts-ignore
-    // if (Object.keys(restaurant) == 0) return router.push("/dashboard");
     if (table && Object.keys(table).length != 0) setTableData(table);
   }, [table]);
 
@@ -135,10 +130,10 @@ export default function TablesInputs({
           onChange={(e) => {
             setTableData({
               ...tableData,
-              palce: e.target.value,
+              place: e.target.value,
             });
           }}
-          value={tableData.palce}
+          value={tableData.place}
           required
         />
         <br />

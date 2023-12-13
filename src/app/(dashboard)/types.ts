@@ -2,7 +2,7 @@ export interface table {
   number: number;
   description?: string;
   restaurant_name: string | null;
-  palce?: string;
+  place?: string;
   sendTo?: string;
   code?: string;
   restaurant_id: string;

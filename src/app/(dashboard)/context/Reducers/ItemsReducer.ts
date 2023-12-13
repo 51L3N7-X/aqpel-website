@@ -47,7 +47,7 @@ export function ItemsReducer(
 
 export interface itemsAction {
   id?: string;
-  type: string;
+  type: "addFirstTime" | "added" | "changed" | "deleted";
   payload?: Array<item>;
   categorieId: string;
 }

@@ -18,6 +18,7 @@ export default function Page() {
   useEffect(() => {
     if (Object.keys(restaurant).length == 0) {
       getApi("/restaurant", router).then((data) => {
+        console.log(data);
         if (data && Object.keys(data).length == 0)
           return dispatch({ type: "noData" });
         dispatch({

@@ -5,6 +5,7 @@ import ItemButton from "../ItemButton/ItemButton";
 import { useRestaurantDispatch } from "../../context/RestaurantContext";
 
 export default function Restaurant({ restaurant }: { restaurant: any }) {
+  console.log(restaurant);
   const dispatch = useRestaurantDispatch();
   const [isAdding, setIsAdding] = useState(false);
   const [addRestaurantBody, setAddRestaurantBody] = useState<{
@@ -28,7 +29,6 @@ export default function Restaurant({ restaurant }: { restaurant: any }) {
 
     const data = await response.json();
     if (data?.success == false) return alert(data?.message);
-    //@ts-ignore
     dispatch({ type: "added", payload: { ...data, data: true } });
     setIsAdding(false);
   };
@@ -77,8 +77,8 @@ export default function Restaurant({ restaurant }: { restaurant: any }) {
       </p>
 
       <h1>The Restaurant</h1>
-      {restaurant &&
-      Object.keys(restaurant).length &&
+      {restaurant &&  
+      Object.keys(restaurant).length != 0 &&
       restaurant.data != false ? (
         <ItemButton data={restaurant}></ItemButton>
       ) : (
