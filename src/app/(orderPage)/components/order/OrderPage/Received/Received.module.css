@@ -24,7 +24,7 @@
 
 .contentContainer {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   flex-direction: column;
   color: var(--pr-yellow-color);
 }

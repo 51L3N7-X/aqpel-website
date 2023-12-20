@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Items } from "../Items/Items";
 import TopBanner from "../TopBanner/TopBanner";
+import Categories from "../Categories/Categories";
+import Fotter from "../NavBar/NavBar";
 
 export default function Menu() {
   const sendOrder = async () => {};
@@ -39,11 +41,16 @@ export default function Menu() {
   if (isLoading) return <div>Loading..</div>;
 
   return (
-    <div>
-      <TopBanner></TopBanner>   
-      <Items items={data}></Items>
-      <button onClick={sendOrder}>Send Order</button>
-    </div>
+    <>
+      <TopBanner></TopBanner>
+      <div className="relative mx-4	mt-[3px] overflow-visible">
+        <div className="relative">
+          <Categories></Categories>
+          <Items items={data}></Items>
+          <Fotter></Fotter>
+        </div>
+      </div>
+    </>
   );
 }
 

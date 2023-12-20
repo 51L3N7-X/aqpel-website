@@ -2,7 +2,6 @@
 
 import { notFound } from "next/navigation";
 import Order from "../../components/order/OrderPage/Order/Order";
-import { useEffect } from "react";
 
 // export const dynamicParams = false;
 

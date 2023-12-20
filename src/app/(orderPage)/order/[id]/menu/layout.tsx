@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { Poppins } from "next/font/google";
+import StyledComponentsRegistry from "./register";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -9,5 +10,9 @@ const poppins = Poppins({
 });
 
 export default function Menu({ children }: { children: React.ReactNode }) {
-  return <div className={poppins.variable}>{children}</div>;
+  return (
+    <StyledComponentsRegistry>
+      <div className={poppins.variable}>{children}</div>
+    </StyledComponentsRegistry>
+  );
 }
