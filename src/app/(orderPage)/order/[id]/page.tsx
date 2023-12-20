@@ -14,12 +14,14 @@ async function getData(id: string) {
 
   if (!(res.status == 200)) return notFound();
 
-  const response = res.json();
+  const response = await res.json();
+  if (response.table == null) return notFound();
   if (!response) return notFound();
   return response;
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
   const data = await getData(params.id);
+  console.log("data", data);
   return <Order params={params} table={data.table}></Order>;
 }

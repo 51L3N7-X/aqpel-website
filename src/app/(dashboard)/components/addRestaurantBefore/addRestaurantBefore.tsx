@@ -21,16 +21,16 @@ export default function AddRestaurantBefore() {
           Authorization: token,
         },
         body: JSON.stringify(data),
-      }
+      },
     );
     const resData = await response.json();
- 
+
     if (resData && resData?.success == false) {
       return alert(resData.message);
     }
 
     return restaurantDispatch({
-      type: "addFirstTime",
+      type: "added",
       payload: resData,
     });
   };
