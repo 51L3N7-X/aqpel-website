@@ -10,7 +10,7 @@ export default function Search() {
           height={20}
           alt="search-icon"
           src="/menu/Search.svg"
-          style={{height : "auto" , width: "auto"}}
+          style={{ height: "auto", width: "auto" }}
         />
         <input
           type="text"
