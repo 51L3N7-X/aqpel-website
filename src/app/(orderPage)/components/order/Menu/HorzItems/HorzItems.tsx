@@ -22,6 +22,7 @@ export default function HorzItems() {
             name={cart.name}
             price={String(cart.price)}
             key={cart._id}
+            count={cart.quanity}
             image={"/menu/item.jpg"}
           ></HorzItem>
         ))}

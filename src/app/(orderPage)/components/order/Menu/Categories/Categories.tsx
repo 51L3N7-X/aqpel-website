@@ -2,16 +2,32 @@
 import React from "react";
 import CategorieItem from "./CategorieItem";
 import useSWR from "swr";
+import { categorie } from "@/app/(dashboard)/types";
 
 export default function Categories({
   categoriesItems,
 }: {
   categoriesItems?: string[];
 }) {
-  const fetcher = (url: string) => {
-    fetch(url).then((res) => res.json());
+  const getCategories = async () => {
+    const restaurant_id = JSON.parse(
+      localStorage.getItem("table")!,
+    ).restaurant_id;
+
+    localStorage.setItem("restaurant_id", restaurant_id);
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${restaurant_id}/categories`,
+    );
+
+    const data = await response.json();
+
+    return data;
   };
-  const { data, isLoading, error } = useSWR(``, fetcher);
+
+  const { data, isLoading, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/`, getCategories);
+
+  if (isLoading) return <div>Loading..</div>;
   return (
     <>
       <p className="mb-[9px] text-base font-semibold text-[#313638]">
@@ -19,11 +35,11 @@ export default function Categories({
       </p>
       <div className="categoriesItems mx-auto flex items-center justify-start gap-x-2 overflow-x-scroll pb-1">
         <CategorieItem name="All"></CategorieItem>
-        {["test", "test1", "test2", "test4", "test5", "test6"].map((item) => (
+        {data.map((category: categorie) => (
           <CategorieItem
-            name={item}
-            key={item}
-            imageURL="/menu/categoryImage2.jpg"
+            name={category.name}
+            key={category._id}
+            imageURL={category.imageUrl}
           ></CategorieItem>
         ))}
       </div>

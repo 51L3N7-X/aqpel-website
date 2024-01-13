@@ -2,6 +2,10 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 export async function getApi(url: string, router: AppRouterInstance) {
   const token: any = window.localStorage.getItem("token");
+  if (!token) {
+    window.localStorage.clear()
+    return router.push("/signin")
+  }
   let data: any = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
     method: "GET",
     headers: {

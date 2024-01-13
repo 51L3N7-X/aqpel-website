@@ -15,6 +15,7 @@ export interface menu {
 }
 
 export interface categorie {
+  _id: string;
   name: string;
   imageUrl: string;
   description: string;
