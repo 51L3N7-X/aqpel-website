@@ -2,7 +2,8 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+import { FavStore } from "@/app/(orderPage)/order/[id]/menu/utils/favourites";
 
 export default function TopBar({ title }: { title: string }) {
   const pathname = usePathname();

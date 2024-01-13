@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-import { css } from "@emotion/react";
 import styled from "styled-components";
 import Search from "../Search/Search";
 

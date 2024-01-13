@@ -10,7 +10,8 @@ import style from "./order.module.css";
 import Image from "next/image";
 import Loading from "../Loading/Loading";
 import Received from "../Received/Received";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Order({
   params,
@@ -19,13 +20,14 @@ export default function Order({
   params: { id: string };
   table: any;
 }) {
+  const pathname = usePathname();
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
   const [isOrderReceived, setIsOrderReceived] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [callingName, setCallingName] = useState("");
   const [receivedData, setReceivedData] = useState<any>({});
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     socket.connect();
@@ -59,11 +61,12 @@ export default function Order({
       socket.off("disconnect", onDisconnect);
       socket.off("waiter:notfiyOrderIsDone", onDone);
     };
-  }, [params.id , table]);
+  }, [params.id, table]);
 
   function onOrder(name: string) {
     if (name == "Menu") {
-      return router.push(`${params.id}/menu`)
+      return;
+      router.prefetch(`${params.id}/menu`);
     }
 
     setCallingName(name);
@@ -97,37 +100,39 @@ export default function Order({
   }
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.background}></div>
-      <NavBar />
-      <Buttons
-        style={{
-          display: isButtonPressed ? "none" : "flex",
-          animation: isButtonPressed ? "fade-in 1s" : "fade-out",
-        }}
-      >
-        <Button
-          name="Call Waiter"
-          imageName="waiter"
-          onClick={() => onOrder("Waiter")}
-        ></Button>
-        <Button
-          name="Menu"
-          imageName="menu"
-          onClick={() => onOrder("Menu")}
-        ></Button>
-        <Button
-          name="Bill"
-          imageName="bill"
-          onClick={() => onOrder("Bill")}
-        ></Button>
-        <Button
-          name="Embers"
-          imageName="embers"
-          onClick={() => onOrder("Embers")}
-        ></Button>
-      </Buttons>
-      {/* <Suspense
+    <div className="parent relative">
+      <div className={style.wrapper}>
+        <NavBar />
+        <Buttons
+          style={{
+            display: isButtonPressed ? "none" : "flex",
+            animation: isButtonPressed ? "fade-in 1s" : "fade-out",
+          }}
+        >
+          <Button
+            name="Call Waiter"
+            imageName="waiter"
+            onClick={() => onOrder("Waiter")}
+          ></Button>
+          <Link href={`${pathname}/menu`}>
+            <Button
+              name="Menu"
+              imageName="menu"
+              onClick={() => onOrder("Menu")}
+            ></Button>
+          </Link>
+          <Button
+            name="Bill"
+            imageName="bill"
+            onClick={() => onOrder("Bill")}
+          ></Button>
+          <Button
+            name="Embers"
+            imageName="embers"
+            onClick={() => onOrder("Embers")}
+          ></Button>
+        </Buttons>
+        {/* <Suspense
           fallback={
             <Loading
               name={callingName}
@@ -138,25 +143,26 @@ export default function Order({
           <Received></Received>
         </Suspense> */}
 
-      <Loading
-        name={callingName}
-        style={{ display: isLoading ? "flex" : "none" }}
-      />
-      <Received
-        name={receivedData.name}
-        tableNumber={table.number}
-        imageLink={receivedData.photoUrl}
-        style={{ display: isOrderReceived ? "flex" : "none" }}
-        onClick={onCardClick}
-      ></Received>
-
-      <Image
+        <Loading
+          name={callingName}
+          style={{ display: isLoading ? "flex" : "none" }}
+        />
+        <Received
+          name={receivedData.name}
+          tableNumber={table.number}
+          imageLink={receivedData.photoUrl}
+          style={{ display: isOrderReceived ? "flex" : "none" }}
+          onClick={onCardClick}
+        ></Received>
+      </div>
+      <div className={style.background}></div>
+      {/* <Image
         className={style.steam}
         src="/order/images/steam.png"
         alt="steam"
         width={757}
         height={591}
-      ></Image>
+      ></Image> */}
     </div>
   );
 }

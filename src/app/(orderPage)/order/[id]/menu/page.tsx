@@ -1,16 +1,18 @@
-"use server";
-import React, { useEffect } from "react";
+import Categories from "@/app/(orderPage)/components/order/Menu/Categories/Categories";
 import { Items } from "@/app/(orderPage)/components/order/Menu/Items/Items";
-import Menuu from "@/app/(orderPage)/components/order/Menu/Menu/Menu";
+import TopBanner from "@/app/(orderPage)/components/order/Menu/TopBanner/TopBanner";
+import React from "react";
 
-export default async function Menu({
-  params,
-}: {
-  params: { restaurant_id: string };
-}) {
+export default function Menu() {
   return (
     <>
-      <Menuu></Menuu>
+      <TopBanner></TopBanner>
+      <div className="relative mx-4	mt-[3px] overflow-visible">
+        <div className="relative">
+          <Categories></Categories>
+          <Items></Items>
+        </div>
+      </div>
     </>
   );
 }

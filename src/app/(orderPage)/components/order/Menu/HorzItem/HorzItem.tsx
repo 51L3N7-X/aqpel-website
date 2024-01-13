@@ -1,18 +1,43 @@
+"use client";
 import React from "react";
+import Image from "next/image";
 
 export default function HorzItem({
   name,
   price,
+  image,
 }: {
   name: string;
   price: string;
+  image?: string | null;
 }) {
   return (
-    <div className="relative rounded-l-[28px] rounded-r-2xl shadow-[0px_2px_4px_1px_rgba(0,0,0,0.18)] bg-white2">
-      <div className="mx-4 flex items-center">
-        <h2 className="text-base font-semibold text-text">{name}</h2>
-        <h2 className="text-lg font-semibold text-yellow1">{price}</h2>
+    <div className="relative mx-6 mt-6 h-20 rounded-l-[28px] rounded-r-2xl bg-white2 shadow-[0px_2px_4px_1px_rgba(0,0,0,0.18)]">
+      <div className="mr-4 flex h-full items-center justify-end">
+        <div className="flex h-full min-w-[33.3%] max-w-fit items-center justify-center">
+          <p className="text-base font-semibold text-text">{name}</p>
+        </div>
+        <div className="flex h-full w-1/3 items-center justify-end">
+          <p className="text-lg font-semibold text-yellow1">{price}</p>
+        </div>
       </div>
+      {image && (
+        <Image
+          src={image}
+          height={96}
+          width={96}
+          alt="food"
+          style={{
+            position: "absolute",
+            left: "-2%",
+            top: "-14%",
+            zIndex: "10",
+            height: "96px",
+            width: "96px",
+            borderRadius: "128px",
+          }}
+        ></Image>
+      )}
     </div>
   );
 }

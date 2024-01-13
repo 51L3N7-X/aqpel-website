@@ -1,10 +1,12 @@
 "use client";
-import { Item } from "@/app/(orderPage)/types";
+import { ItemType } from "@/app/(orderPage)/types";
 import React from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { FavStore } from "@/app/(orderPage)/order/[id]/menu/utils/favourites";
 
-const TextContainer = styled.div<{ $item: Item }>`
+const TextContainer = styled.div<{ $item: ItemType }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,6 +19,8 @@ const CaloriesContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 4px 0;
+  gap: 4px;
 `;
 
 const CaloriesText = styled.p`
@@ -32,16 +36,22 @@ const PeopleText = styled.p`
   color: rgb(142 142 142 / var(--tw-text-opacity));
 `;
 
-export default function Item({ item }: { item: Item }) {
+export default function Item({ item }: { item: ItemType }) {
+  // const [store, setStore] = useState<FavStore>();
+
+  // useEffect(() => {
+  //   let s = new FavStore();
+  //   setStore(s);
+  // }, []);
   return (
     <div className="relative h-[167px] w-[120px] justify-self-center rounded-2xl bg-[#FBFAF6] font-poppins shadow-[-1px_4px_4px_1px_rgba(172,172,172,0.25)]">
       <Image
-        src="/menu/img.png"
+        src="/menu/item.jpg"
         alt=""
         width={118}
         height={114}
-        className="absolute -left-[24px] -top-[22px] rounded-[118px]"
-        style={{ width: "auto", height: "auto" }}
+        className="absolute -left-[8px] -top-[16px] rounded-[118px]"
+        style={{ width: "96px", height: "96px" }}
         priority
       />
       {/* {item.imageUrl && <Image src={`http://localhost:3000/menu/img.png`} alt="" />} */}
@@ -82,7 +92,7 @@ export default function Item({ item }: { item: Item }) {
               height={20}
               alt="Calories"
               src="/menu/fire.svg"
-              style={{ width: "auto", height: "auto" }}
+              style={{ width: "12px", height: "12px" }}
             ></Image>
             <CaloriesText className="text-[8px] font-medium  text-[#8E8E8E]">
               {item.calories} Calories

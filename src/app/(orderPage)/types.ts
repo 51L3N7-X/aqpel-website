@@ -1,6 +1,6 @@
-export type Items = Array<Item>;
+export type ItemsType = Array<ItemType>;
 
-export interface Item {
+export interface ItemType {
   name: string;
   price: string;
   description?: string;
@@ -9,6 +9,6 @@ export interface Item {
   new?: boolean;
   special?: boolean;
   imageUrl?: string;
-  id?: string;
+  _id: string;
   ingredients?: string;
 }
