@@ -19,6 +19,7 @@
       #1b1e21 100%
     );
     height: var(--nav-height);
+    --test: white;
   }
 
   .logo {
