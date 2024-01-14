@@ -15,6 +15,7 @@ async function getData(id: string) {
   if (!(res.status == 200)) return notFound();
 
   const response = await res.json();
+  //ge
   if (response.table == null) return notFound();
   if (!response) return notFound();
   return response;
