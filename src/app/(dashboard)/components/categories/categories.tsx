@@ -12,8 +12,13 @@ export default function Categories({
   dispatchCategories: any;
   ids: { restaurant: string; menu: string };
 }) {
+  type AddCategoryState = {
+    imageUrl: string;
+    name: string;
+    description: string;
+  };
   const [isAdding, setIsAdding] = useState(false);
-  const [addCategoryBody, setAddCategoryBody] = useState<categorie>({
+  const [addCategoryBody, setAddCategoryBody] = useState<AddCategoryState>({
     imageUrl: "",
     name: "",
     description: "",
@@ -31,7 +36,7 @@ export default function Categories({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(addCategoryBody),
-      }
+      },
     );
 
     const data = await response.json();
@@ -102,7 +107,7 @@ export default function Categories({
         (categorie, index) => {
           // console.log(categorie)
           return <ItemButton data={categorie} key={index}></ItemButton>;
-        }
+        },
       )}
       <button onClick={() => setIsAdding(true)}>Add Category</button>
     </div>

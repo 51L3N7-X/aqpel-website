@@ -10,7 +10,7 @@ export default function Cart() {
   return (
     <div className="">
       <TopBar title="Cart"></TopBar>
-      <HorzItems></HorzItems>
+      <HorzItems type="cart"></HorzItems>
       <TotalPrice></TotalPrice>
       <BottomButton title="Send The Order"></BottomButton>
     </div>
