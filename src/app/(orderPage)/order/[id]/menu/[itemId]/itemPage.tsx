@@ -22,6 +22,7 @@ export default function ItemPage({ item }: { item: ItemType }) {
     price: +item.price,
     quanity: number,
     _id: item._id,
+    image: item.imageUrl,
   };
 
   const [tempCartItem, setTempCartItem] = useState<(obj: CartItem) => CartItem>(

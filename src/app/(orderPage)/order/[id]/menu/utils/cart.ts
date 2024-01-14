@@ -3,6 +3,7 @@ export type CartItem = {
   quanity: number;
   price: number;
   _id: string;
+  image?: string;
 };
 
 interface CartStoreType {
