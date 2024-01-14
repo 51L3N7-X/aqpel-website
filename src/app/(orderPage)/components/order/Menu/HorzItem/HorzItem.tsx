@@ -16,9 +16,13 @@ export default function HorzItem({
   return (
     <div className="relative mx-6 mt-6 h-20 rounded-l-[28px] rounded-r-2xl bg-white2 shadow-[0px_2px_4px_1px_rgba(0,0,0,0.18)]">
       <div className="mr-4 flex h-full items-center justify-end">
-        <div className="flex h-full min-w-[33.3%] max-w-fit items-center justify-center">
+        <div className="flex h-full min-w-[33.3%] max-w-fit flex-col items-center justify-center gap-1">
           <p className="text-base font-semibold text-text">{name}</p>
-          {count && <p className="text-text text-[12px] font-semibold">{count} {count > 1 ? "pieces" : "piece"}</p>}
+          {count && (
+            <p className="text-gray1 text-[12px] font-semibold">
+              {count} {count > 1 ? "pieces" : "piece"}
+            </p>
+          )}
         </div>
         <div className="flex h-full w-1/3 items-center justify-end">
           <p className="text-lg font-semibold text-yellow1">{price}</p>

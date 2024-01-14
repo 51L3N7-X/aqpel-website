@@ -16,7 +16,7 @@
     "@tanstack/react-query-devtools": "^5.8.2",
     "bufferutil": "^4.0.8",
     "framer-motion": "^10.17.9",
-    "next": "^14.0.3",
+    "next": "^14.0.5-canary.56",
     "react": "^18",
     "react-dom": "^18",
     "socket.io": "^4.7.2",
