@@ -5,13 +5,13 @@ import StyledComponentsRegistry from "./register";
 import NavBar from "@/app/(orderPage)/components/order/Menu/NavBar/NavBar";
 import localFont from "next/font/local";
 import { join } from "path";
-// const poppins = Poppins({
-//   subsets: ["latin"],
-//   display: "swap",
-//   variable: "--poppins-font",
-//   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-//   style: ["normal"],
-// });
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--poppins-font",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal"],
+});
 
 // const poppins = localFont({
 //   src: [
@@ -61,7 +61,7 @@ export default function MenuLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className={poppins.className}>
       <StyledComponentsRegistry>
         <div>{children}</div>
         <NavBar></NavBar>

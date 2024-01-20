@@ -1,9 +1,6 @@
 import HorzItems from "@/app/(orderPage)/components/order/Menu/HorzItems/HorzItems";
 import TopBar from "@/app/(orderPage)/components/order/Menu/TopBar/TopBar";
 import React, { Suspense } from "react";
-import { FavStore, Store } from "../utils/favourites";
-import HorzItem from "@/app/(orderPage)/components/order/Menu/HorzItem/HorzItem";
-import { useEffect, useState } from "react";
 
 export default function Favourites() {
   // const [items, setItems] = useState<Array<Store>>([]);
