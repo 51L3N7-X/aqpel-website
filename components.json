@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "dashboardcss.config.ts",
+    "css": "@/app/(dashboard)/globals.css",
+    "baseColor": "slate",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/app/(dashboard)/components",
+    "utils": "@/app/(dashboard)/utils"
+  }
+}
